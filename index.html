@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Замени этот заголовок</title>
+<title>Блюда, которые я умею готовить</title>
 <style>
   :root { --bg: #fbfbfa; --fg: #1a1a18; --dim: #6b6b66; --line: #e4e4e0; }
   @media (prefers-color-scheme: dark) {
@@ -14,33 +14,528 @@
     margin: 0; padding: 48px 16px; background: var(--bg); color: var(--fg);
     font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     display: flex; justify-content: center;
+    overflow-wrap: break-word;
   }
   main { max-width: 34rem; width: 100%; }
   h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 .75rem; }
+  h3 { font-size: 1rem; margin: .75rem 0 .25rem; }
   p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 .5rem; padding-left: 1.4rem; }
   .dim { color: var(--dim); }
-  .box { border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-top: 28px; }
-  code { background: var(--line); padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+
+  /* Кухня — строка, по нажатию открывается список блюд */
+  .kitchen { border: 1px solid var(--line); border-radius: 10px; margin-top: 12px; }
+  .kitchen > summary { padding: 12px 16px; font-size: 1.15rem; font-weight: 600; cursor: pointer; }
+  .kitchen[open] > summary { border-bottom: 1px solid var(--line); }
+  .dishes { padding: 4px 16px 8px; }
+
+  /* Блюдо — по нажатию открывается рецепт */
+  .dish { border-bottom: 1px solid var(--line); }
+  .dish:last-child { border-bottom: none; }
+  .dish > summary { padding: 10px 0; cursor: pointer; }
+  .recipe { padding: 0 0 12px 1rem; }
+
+  /* Картинка блюда: квадрат 2.25em — уже самого короткого названия («Лобио») */
+  .thumb {
+    width: 2.25em; height: 2.25em; object-fit: cover;
+    border-radius: 6px; vertical-align: middle; margin: 0 .25rem;
+  }
+
+  /* Крестик ✗ (красный) и галочка ✓ (зелёная) после названия */
+  .mark {
+    border: none; background: none; padding: 0 .25rem; cursor: pointer;
+    font: inherit; font-size: 1.2rem; font-weight: 700; color: #d32f2f;
+  }
+  .mark.done { color: #2e7d32; }
 </style>
 </head>
 <body>
 <main>
 
-  <h1>Страница работает</h1>
+  <h1>Блюда, которые я умею готовить</h1>
 
-  <p>Если ты это читаешь в интернете, а не у себя на компьютере, — значит весь путь уже собран:
-  репозиторий есть, страница опубликована, ссылку можно кинуть другу.</p>
+  <p class="dim">Нажми на кухню, чтобы увидеть блюда. Нажми на блюдо, чтобы увидеть рецепт. Нажми на ✗, чтобы отметить блюдо галочкой.</p>
 
-  <p class="dim">Это всё, что здесь должно быть. Содержимое придумаешь ты, а сделает ИИ.</p>
+  <details class="kitchen">
+    <summary>Итальянская кухня</summary>
+    <div class="dishes">
 
-  <div class="box">
-    <p><strong>Твой следующий ход.</strong></p>
-    <p>Открой <code>zadanie-1.md</code> и напиши, какую страницу ты хочешь — <strong>до того</strong>, как попросишь ИИ.
-    Потом попроси. Потом запусти <code>./check.sh</code>.</p>
-    <p class="dim">Проверка сейчас краснеет на заголовке этой страницы: он так и называется
-    «Замени этот заголовок». Это нарочно.</p>
-  </div>
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Spaghetti_carbonara.jpg/120px-Spaghetti_carbonara.jpg" alt="" loading="lazy"> Паста карбонара <button class="mark" type="button" data-id="carbonara" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Спагетти — 200 г</li>
+            <li>Бекон или гуанчиале — 100 г</li>
+            <li>Яйца — 2 шт.</li>
+            <li>Сыр пармезан — 50 г</li>
+            <li>Чёрный перец, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Отварить спагетти в подсолёной воде.</li>
+            <li>Обжарить нарезанный бекон на сковороде.</li>
+            <li>Смешать яйца с тёртым сыром и перцем.</li>
+            <li>Снять сковороду с огня, добавить пасту и яичную смесь, быстро перемешать.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Pizza_Margherita_stu_spivack.jpg/120px-Pizza_Margherita_stu_spivack.jpg" alt="" loading="lazy"> Пицца «Маргарита» <button class="mark" type="button" data-id="margarita" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Готовое тесто для пиццы — 1 шт.</li>
+            <li>Томатный соус — 4 ст. л.</li>
+            <li>Моцарелла — 125 г</li>
+            <li>Свежий базилик</li>
+            <li>Оливковое масло</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Разогреть духовку до 220 °C.</li>
+            <li>Раскатать тесто и смазать томатным соусом.</li>
+            <li>Выложить кусочки моцареллы.</li>
+            <li>Выпекать 10–12 минут, сверху положить базилик и сбрызнуть маслом.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Bruschetta_2025.jpg/120px-Bruschetta_2025.jpg" alt="" loading="lazy"> Брускетта с помидорами <button class="mark" type="button" data-id="bruschetta" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Багет — 1/2 шт.</li>
+            <li>Помидоры — 2 шт.</li>
+            <li>Чеснок — 1 зубчик</li>
+            <li>Базилик, оливковое масло, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Нарезать багет ломтиками и подсушить на сковороде.</li>
+            <li>Натереть хлеб чесноком.</li>
+            <li>Мелко нарезать помидоры, смешать с базиликом, маслом и солью.</li>
+            <li>Выложить помидоры на хлеб.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Mushroom_Risotto_%284789415965%29.jpg/120px-Mushroom_Risotto_%284789415965%29.jpg" alt="" loading="lazy"> Ризотто с грибами <button class="mark" type="button" data-id="risotto" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Рис арборио — 150 г</li>
+            <li>Шампиньоны — 200 г</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Бульон — 600 мл</li>
+            <li>Сливочное масло, пармезан</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Обжарить лук и грибы на сливочном масле.</li>
+            <li>Добавить рис и жарить 1–2 минуты.</li>
+            <li>Вливать горячий бульон по половнику, помешивая, пока рис не станет мягким.</li>
+            <li>Добавить тёртый пармезан и кусочек масла, перемешать.</li>
+          </ol>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <details class="kitchen">
+    <summary>Белорусская кухня</summary>
+    <div class="dishes">
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Potato_pancakes.jpg/120px-Potato_pancakes.jpg" alt="" loading="lazy"> Драники <button class="mark" type="button" data-id="draniki" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Картофель — 5 шт.</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Яйцо — 1 шт.</li>
+            <li>Мука — 2 ст. л.</li>
+            <li>Соль, масло для жарки</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Натереть картофель и лук на мелкой тёрке.</li>
+            <li>Слить лишний сок, добавить яйцо, муку и соль.</li>
+            <li>Выкладывать ложкой на горячую сковороду с маслом.</li>
+            <li>Жарить с двух сторон до золотистой корочки.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Machanka.jpg/120px-Machanka.jpg" alt="" loading="lazy"> Мачанка с блинами <button class="mark" type="button" data-id="machanka" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Свиные рёбрышки или колбаса — 300 г</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Сметана — 200 г</li>
+            <li>Мука — 1 ст. л.</li>
+            <li>Блины — для подачи</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Обжарить мясо с луком.</li>
+            <li>Посыпать мукой и перемешать.</li>
+            <li>Добавить сметану и немного воды, тушить 15 минут.</li>
+            <li>Подавать с блинами, макая их в соус.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Kold%C5%ABnai.JPG/120px-Kold%C5%ABnai.JPG" alt="" loading="lazy"> Колдуны <button class="mark" type="button" data-id="kolduny" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Картофель — 6 шт.</li>
+            <li>Фарш — 250 г</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Крахмал — 1 ст. л.</li>
+            <li>Соль, перец, масло для жарки</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Натереть картофель, отжать сок, добавить крахмал и соль.</li>
+            <li>Смешать фарш с мелко нарезанным луком, солью и перцем.</li>
+            <li>Сделать из картофеля лепёшку, положить фарш, закрыть картофелем.</li>
+            <li>Обжарить с двух сторон, затем довести под крышкой 10 минут.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Lurid_borscht.jpg/120px-Lurid_borscht.jpg" alt="" loading="lazy"> Холодник <button class="mark" type="button" data-id="holodnik" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Кефир — 1 л</li>
+            <li>Варёная свёкла — 2 шт.</li>
+            <li>Огурцы — 2 шт.</li>
+            <li>Варёные яйца — 2 шт.</li>
+            <li>Зелёный лук, укроп, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Натереть свёклу на крупной тёрке.</li>
+            <li>Нарезать огурцы, яйца и зелень.</li>
+            <li>Залить всё кефиром, посолить и перемешать.</li>
+            <li>Охладить в холодильнике 30 минут.</li>
+          </ol>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <details class="kitchen">
+    <summary>Грузинская кухня</summary>
+    <div class="dishes">
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/%D0%92%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B9_%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D1%85%D0%B0%D1%87%D0%B0%D0%BF%D1%83%D1%80%D0%B8.jpg/120px-%D0%92%D0%BA%D1%83%D1%81%D0%BD%D1%8B%D0%B9_%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D1%85%D0%B0%D1%87%D0%B0%D0%BF%D1%83%D1%80%D0%B8.jpg" alt="" loading="lazy"> Хачапури по-имеретински <button class="mark" type="button" data-id="hachapuri" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Мука — 300 г</li>
+            <li>Кефир — 200 мл</li>
+            <li>Сыр сулугуни — 300 г</li>
+            <li>Яйцо — 1 шт.</li>
+            <li>Сода, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Замесить тесто из муки, кефира, соды и соли.</li>
+            <li>Натереть сыр и смешать с яйцом.</li>
+            <li>Раскатать тесто, положить начинку в центр и защипнуть края.</li>
+            <li>Раскатать в лепёшку и жарить на сухой сковороде под крышкой с двух сторон.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/%D0%A7%D0%B0%D1%85%D0%BE%D1%85%D0%B1%D0%B8%D0%BB%D0%B8_2.JPG/120px-%D0%A7%D0%B0%D1%85%D0%BE%D1%85%D0%B1%D0%B8%D0%BB%D0%B8_2.JPG" alt="" loading="lazy"> Чахохбили <button class="mark" type="button" data-id="chahohbili" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Курица — 800 г</li>
+            <li>Помидоры — 4 шт.</li>
+            <li>Луковицы — 2 шт.</li>
+            <li>Чеснок — 3 зубчика</li>
+            <li>Кинза, хмели-сунели, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Обжарить кусочки курицы без масла до корочки.</li>
+            <li>Добавить нарезанный лук и жарить 5 минут.</li>
+            <li>Добавить тёртые помидоры и специи, тушить 30 минут.</li>
+            <li>В конце добавить чеснок и кинзу.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Lobio_with_summer_savory_and_ajika.jpg/120px-Lobio_with_summer_savory_and_ajika.jpg" alt="" loading="lazy"> Лобио <button class="mark" type="button" data-id="lobio" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Красная фасоль (варёная или консервированная) — 400 г</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Грецкие орехи — 50 г</li>
+            <li>Чеснок — 2 зубчика</li>
+            <li>Кинза, хмели-сунели, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Обжарить лук до мягкости.</li>
+            <li>Добавить фасоль и немного воды, слегка размять.</li>
+            <li>Добавить измельчённые орехи, чеснок и специи.</li>
+            <li>Потушить 10 минут и посыпать кинзой.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Ajapsandali_-_Georgian_eggplant_stew.jpg/120px-Ajapsandali_-_Georgian_eggplant_stew.jpg" alt="" loading="lazy"> Аджапсандали <button class="mark" type="button" data-id="adjapsandali" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Баклажаны — 2 шт.</li>
+            <li>Болгарский перец — 2 шт.</li>
+            <li>Помидоры — 3 шт.</li>
+            <li>Луковица — 1 шт.</li>
+            <li>Чеснок, зелень, соль</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Нарезать все овощи кубиками.</li>
+            <li>Обжарить баклажаны, затем лук и перец.</li>
+            <li>Добавить помидоры и тушить 20 минут.</li>
+            <li>Добавить чеснок и зелень, дать постоять 10 минут.</li>
+          </ol>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <details class="kitchen">
+    <summary>Японская кухня</summary>
+    <div class="dishes">
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Kappamaki_1.jpg/120px-Kappamaki_1.jpg" alt="" loading="lazy"> Роллы с огурцом <button class="mark" type="button" data-id="kappamaki" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Рис для суши — 200 г</li>
+            <li>Листы нори — 3 шт.</li>
+            <li>Огурец — 1 шт.</li>
+            <li>Рисовый уксус — 2 ст. л.</li>
+            <li>Соевый соус для подачи</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Сварить рис и смешать с рисовым уксусом, остудить.</li>
+            <li>Положить нори на коврик и распределить рис тонким слоем.</li>
+            <li>Выложить полоски огурца и свернуть ролл.</li>
+            <li>Нарезать мокрым ножом на 6–8 кусочков.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Miso_Soup_001.jpg/120px-Miso_Soup_001.jpg" alt="" loading="lazy"> Мисо-суп <button class="mark" type="button" data-id="miso" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Вода — 700 мл</li>
+            <li>Мисо-паста — 2 ст. л.</li>
+            <li>Тофу — 100 г</li>
+            <li>Сушёные водоросли вакаме — 1 ч. л.</li>
+            <li>Зелёный лук</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Довести воду до кипения и убавить огонь.</li>
+            <li>Добавить водоросли и тофу кубиками.</li>
+            <li>Развести мисо-пасту в половнике горячей воды и влить в суп.</li>
+            <li>Не кипятить, посыпать зелёным луком и подавать.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Chicken_teriyaki.jpg/120px-Chicken_teriyaki.jpg" alt="" loading="lazy"> Курица терияки <button class="mark" type="button" data-id="teriyaki" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Куриное филе — 400 г</li>
+            <li>Соевый соус — 3 ст. л.</li>
+            <li>Мёд — 1 ст. л.</li>
+            <li>Чеснок — 1 зубчик</li>
+            <li>Кунжут, масло для жарки</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Нарезать курицу кусочками.</li>
+            <li>Смешать соевый соус, мёд и тёртый чеснок.</li>
+            <li>Обжарить курицу до готовности.</li>
+            <li>Влить соус и уварить 2–3 минуты, посыпать кунжутом.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Tamagoyaki_by_naotakem_in_Tokyo.jpg/120px-Tamagoyaki_by_naotakem_in_Tokyo.jpg" alt="" loading="lazy"> Тамагояки (японский омлет) <button class="mark" type="button" data-id="tamagoyaki" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Яйца — 3 шт.</li>
+            <li>Сахар — 1 ч. л.</li>
+            <li>Соевый соус — 1 ч. л.</li>
+            <li>Масло для жарки</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Взбить яйца с сахаром и соевым соусом.</li>
+            <li>Налить тонкий слой на смазанную сковороду.</li>
+            <li>Когда схватится, свернуть рулетом к краю.</li>
+            <li>Налить следующий слой и снова свернуть, повторить до конца смеси.</li>
+          </ol>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <details class="kitchen">
+    <summary>Французская кухня</summary>
+    <div class="dishes">
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Crepes_dsc07085.jpg/120px-Crepes_dsc07085.jpg" alt="" loading="lazy"> Блинчики (крепы) <button class="mark" type="button" data-id="crepes" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Мука — 125 г</li>
+            <li>Молоко — 250 мл</li>
+            <li>Яйца — 2 шт.</li>
+            <li>Сахар — 1 ст. л.</li>
+            <li>Сливочное масло — 20 г, щепотка соли</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Смешать яйца, сахар и соль.</li>
+            <li>Добавить муку и постепенно влить молоко, чтобы не было комочков.</li>
+            <li>Добавить растопленное масло и дать тесту постоять 15 минут.</li>
+            <li>Жарить тонкие блинчики на горячей сковороде.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Soupe_%C3%A0_l%27oignon_1.jpg/120px-Soupe_%C3%A0_l%27oignon_1.jpg" alt="" loading="lazy"> Луковый суп <button class="mark" type="button" data-id="onion-soup" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Луковицы — 4 шт.</li>
+            <li>Сливочное масло — 40 г</li>
+            <li>Бульон — 1 л</li>
+            <li>Багет — несколько ломтиков</li>
+            <li>Твёрдый сыр — 80 г</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Нарезать лук тонкими полукольцами.</li>
+            <li>Томить лук на масле 30–40 минут до коричневого цвета.</li>
+            <li>Влить бульон и варить 15 минут.</li>
+            <li>Разлить по мискам, положить хлеб с сыром и запечь до расплавления сыра.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Quiche_de_Lorraine.jpg/120px-Quiche_de_Lorraine.jpg" alt="" loading="lazy"> Киш с ветчиной и сыром <button class="mark" type="button" data-id="quiche" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Готовое песочное тесто — 250 г</li>
+            <li>Ветчина — 150 г</li>
+            <li>Твёрдый сыр — 100 г</li>
+            <li>Яйца — 3 шт.</li>
+            <li>Сливки — 200 мл</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Выложить тесто в форму с бортиками.</li>
+            <li>Положить нарезанную ветчину и тёртый сыр.</li>
+            <li>Взбить яйца со сливками и залить начинку.</li>
+            <li>Выпекать 35 минут при 180 °C.</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="dish">
+        <summary><img class="thumb" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Ratatouille.jpg/120px-Ratatouille.jpg" alt="" loading="lazy"> Рататуй <button class="mark" type="button" data-id="ratatouille" aria-label="Умею готовить">✗</button></summary>
+        <div class="recipe">
+          <h3>Ингредиенты</h3>
+          <ul>
+            <li>Кабачок — 1 шт.</li>
+            <li>Баклажан — 1 шт.</li>
+            <li>Помидоры — 3 шт.</li>
+            <li>Болгарский перец — 1 шт.</li>
+            <li>Чеснок, оливковое масло, прованские травы</li>
+          </ul>
+          <h3>Шаги</h3>
+          <ol>
+            <li>Нарезать овощи тонкими кружками.</li>
+            <li>Выложить в форму, чередуя овощи.</li>
+            <li>Полить маслом с чесноком и посыпать травами.</li>
+            <li>Запекать 40 минут при 180 °C под фольгой.</li>
+          </ol>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <p class="dim">Фотографии блюд — из Wikimedia Commons.</p>
 
 </main>
+
+<script>
+  // Крестик ✗ ↔ галочка ✓. Отметки хранятся в браузере (localStorage),
+  // поэтому не пропадают после обновления страницы.
+  const KEY = 'umeyu-gotovit';
+  let done = [];
+  try { done = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+
+  function show(button) {
+    const isDone = done.includes(button.dataset.id);
+    button.textContent = isDone ? '✓' : '✗';
+    button.classList.toggle('done', isDone);
+  }
+
+  document.querySelectorAll('.mark').forEach(button => {
+    show(button);
+    button.addEventListener('click', event => {
+      event.preventDefault(); // чтобы нажатие не открывало рецепт
+      const id = button.dataset.id;
+      done = done.includes(id) ? done.filter(x => x !== id) : [...done, id];
+      try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
+      show(button);
+    });
+  });
+</script>
 </body>
 </html>
